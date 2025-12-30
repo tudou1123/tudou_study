@@ -25,7 +25,8 @@ int main() {
     while (true)
     {
         fgets(buffer, 1024, stdin);
-        buffer[strlen(buffer)] = '\0';
+        if(buffer[strlen(buffer) - 1] == '\n')
+            buffer[strlen(buffer) - 1] = '\0';
         int tmp = send(sockfd, buffer, strlen(buffer), 0);
         if (tmp <= 0) {
             perror("send failed");
@@ -43,8 +44,6 @@ int main() {
             break;
         }
     }
-    
-    
-    
+    close(sockfd);   
     return 0;
 }
